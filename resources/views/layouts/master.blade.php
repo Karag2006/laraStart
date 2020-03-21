@@ -98,7 +98,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <li class="nav-item">
                 <router-link to="/user" class="nav-link">
                   <i class="fas fa-users nav-icon teal"></i>
-                  i.fa
                   <p>Users</p>
                 </router-link>
               </li>
