@@ -24,6 +24,7 @@ Vue.use(VueRouter)
 
 import VueProgressBar from 'vue-progressbar';
 
+
 const options = {
     color: 'green',
     failedColor: '#874b4b',
@@ -39,6 +40,25 @@ const options = {
   }
 
 Vue.use(VueProgressBar, options)
+
+import swal from 'sweetalert2';
+window.swal = swal;
+
+
+const toast = swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    onOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  });
+
+window.toast = toast;
+
 
 import Dashboard from './components/Dashboard'
 import Profile from './components/Profile'
