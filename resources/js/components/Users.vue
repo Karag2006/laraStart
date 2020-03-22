@@ -7,7 +7,7 @@
               <h3 class="card-title">User Management</h3>
 
               <div class="card-tools">
-                <button class="btn btn-success" data-toggle="modal" data-target="#addNew">Add User <i class="fas fa-user-plus fa-fw"></i> </button>
+                <button class="btn btn-success" @click="newModal">Add User <i class="fas fa-user-plus fa-fw"></i> </button>
               </div>
             </div>
             <!-- /.card-header -->
@@ -28,7 +28,7 @@
                   <td>{{user.type | upText}}</td>
                   <td>{{user.created_at | myDate}}</td>
                   <td>
-                    <a href="#">
+                    <a href="#" @click="editModal(user)">
                         <i class="fas fa-edit blue"></i>
                     </a>
                      /
@@ -125,6 +125,18 @@
         },
 
         methods: {
+            newModal(){
+                this.form.clear();
+                this.form.reset();
+                $('#addNew').modal('show')
+            },
+
+            editModal(user){
+                this.form.clear();
+                this.form.reset();
+                $('#addNew').modal('show')
+                this.form.fill(user);
+            },
             createUser(){
                 this.$Progress.start();
                 this.form.post('api/user')
