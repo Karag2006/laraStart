@@ -128,6 +128,7 @@
             createUser(){
                 this.$Progress.start();
                 this.form.post('api/user');
+                Fire.$emit('user_change');
 
                 $('#addNew').modal('hide')
 
@@ -145,6 +146,7 @@
 
         created() {
             this.loadUsers();
+            Fire.$on('user_change', () => {this.loadUsers()});
         }
     }
 </script>
