@@ -24,3 +24,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('dashboard', 'HomeController@index');
 Route::get('profile', 'HomeController@index');
 Route::get('user', 'HomeController@index');
+Route::get('dev', 'HomeController@index');
