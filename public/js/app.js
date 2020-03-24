@@ -2108,6 +2108,7 @@ __webpack_require__.r(__webpack_exports__);
       editmode: false,
       users: {},
       form: new Form({
+        id: '',
         name: '',
         email: '',
         password: '',
@@ -2149,10 +2150,24 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     updateUser: function updateUser() {
-      console.log('updateUser');
+      var _this2 = this;
+
+      this.$Progress.start();
+      this.form.patch('api/user/' + this.form.id).then(function () {
+        Fire.$emit('user_change');
+        $('#addNew').modal('hide');
+        toast.fire({
+          icon: 'success',
+          title: 'User "' + _this2.form.name + '" updated successfully'
+        });
+
+        _this2.$Progress.finish();
+      })["catch"](function () {
+        _this2.$Progress.fail();
+      });
     },
     deleteUser: function deleteUser(id) {
-      var _this2 = this;
+      var _this3 = this;
 
       swal.fire({
         title: 'Delete this User?',
@@ -2164,7 +2179,7 @@ __webpack_require__.r(__webpack_exports__);
         confirmButtonText: 'Delete!'
       }).then(function (result) {
         if (result.value) {
-          _this2.form["delete"]('api/user/' + id).then(function () {
+          _this3.form["delete"]('api/user/' + id).then(function () {
             swal.fire('Deleted!', 'The User has been deleted.', 'success');
           })["catch"](function () {
             swal("Failed!", "There was an Error", "warning");
@@ -2175,20 +2190,20 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     loadUsers: function loadUsers() {
-      var _this3 = this;
+      var _this4 = this;
 
       axios.get("api/user").then(function (_ref) {
         var data = _ref.data;
-        return _this3.users = data.data;
+        return _this4.users = data.data;
       });
     }
   },
   created: function created() {
-    var _this4 = this;
+    var _this5 = this;
 
     this.loadUsers();
     Fire.$on('user_change', function () {
-      _this4.loadUsers();
+      _this5.loadUsers();
     });
   }
 });

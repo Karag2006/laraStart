@@ -117,6 +117,7 @@
                 editmode : false,
                 users : {},
                 form: new Form({
+                    id : '',
                     name: '',
                     email: '',
                     password: '',
@@ -164,7 +165,24 @@
             },
 
             updateUser(){
-              console.log('updateUser');
+              this.$Progress.start();
+              this.form.patch('api/user/' + this.form.id)
+                .then(() => {
+                    Fire.$emit('user_change');
+                    $('#addNew').modal('hide');
+
+                    toast.fire({
+                        icon: 'success',
+                        title: 'User "'+ this.form.name +'" updated successfully'
+                    });
+
+                    this.$Progress.finish();
+
+                })
+                .catch(() => {
+                    this.$Progress.fail();
+                })
+
             },
 
             deleteUser(id){
