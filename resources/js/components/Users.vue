@@ -50,13 +50,14 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="addNewLabel">Add New User</h5>
+        <h5 class="modal-title" id="addNewLabel" v-show="!editmode">Add New User</h5>
+        <h5 class="modal-title" id="addNewLabel" v-show="editmode">Update {{ form.name }}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
 
-      <form @submit.prevent="createUser">
+      <form @submit.prevent="editmode ? updateUser() : createUser()">
       <div class="modal-body">
 
          <div class="form-group">
@@ -97,7 +98,8 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-success">Create</button>
+        <button type="submit" class="btn btn-success" v-show="!editmode">Create</button>
+        <button type="submit" class="btn btn-primary" v-show="editmode">Update User</button>
       </div>
       </form>
     </div>
@@ -112,6 +114,7 @@
 
         data() {
             return {
+                editmode : false,
                 users : {},
                 form: new Form({
                     name: '',
@@ -128,12 +131,14 @@
             newModal(){
                 this.form.clear();
                 this.form.reset();
+                this.editmode = false;
                 $('#addNew').modal('show')
             },
 
             editModal(user){
                 this.form.clear();
                 this.form.reset();
+                this.editmode = true;
                 $('#addNew').modal('show')
                 this.form.fill(user);
             },
@@ -156,6 +161,10 @@
                     this.$Progress.fail();
                 })
 
+            },
+
+            updateUser(){
+              console.log('updateUser');
             },
 
             deleteUser(id){
