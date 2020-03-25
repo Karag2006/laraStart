@@ -77695,7 +77695,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _components_Dashboard__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/Dashboard */ "./resources/js/components/Dashboard.vue");
-/* harmony import */ var _components_Developer__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/Developer */ "./resources/js/components/Developer.vue");
+/* harmony import */ var _components_Developer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/Developer */ "./resources/js/components/Developer.vue");
 /* harmony import */ var _components_Profile__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/Profile */ "./resources/js/components/Profile.vue");
 /* harmony import */ var _components_Users__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/Users */ "./resources/js/components/Users.vue");
 /**
@@ -77752,7 +77752,7 @@ var routes = [{
   component: _components_Dashboard__WEBPACK_IMPORTED_MODULE_5__["default"]
 }, {
   path: '/dev',
-  component: _components_Developer__WEBPACK_IMPORTED_MODULE_9__["default"]
+  component: _components_Developer__WEBPACK_IMPORTED_MODULE_6__["default"]
 }, {
   path: '/profile',
   component: _components_Profile__WEBPACK_IMPORTED_MODULE_7__["default"]
