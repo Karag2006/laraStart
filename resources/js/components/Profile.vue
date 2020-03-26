@@ -16,8 +16,8 @@
             <div class="box box-widget widget-user">
               <!-- Add the bg color to the header using any of the bg-* classes -->
               <div class="widget-user-header bg-black" style="background: url('./img/user-cover.jpg') center center;">
-                <h3 class="widget-user-username">Elizabeth Pierce</h3>
-                <h5 class="widget-user-desc">Web Designer</h5>
+                <h3 class="widget-user-username">{{ form.name }}</h3>
+                <h5 class="widget-user-desc">{{ form.type }}</h5>
               </div>
               <div class="widget-user-image">
                 <img class="img-circle" src="" alt="User Avatar">
@@ -70,25 +70,25 @@
               <div class="tab-pane active" id="settings">
                 <form class="form-horizontal">
                   <div class="form-group">
-                    <label for="inputName" class="col-sm-2 control-label">Name</label>
+                    <label for="name" class="col-sm-2 control-label">Name</label>
 
                     <div class="col-sm-10">
-                      <input type="email" class="form-control" id="inputName" placeholder="Name">
+                      <input v-model="form.name" type="text" class="form-control" id="name" placeholder="Name">
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+                    <label for="email" class="col-sm-2 control-label">Email</label>
 
                     <div class="col-sm-10">
-                      <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                      <input v-model="form.email" type="email" class="form-control" id="email" placeholder="Email">
                     </div>
                   </div>
 
                   <div class="form-group">
-                    <label for="inputExperience" class="col-sm-2 control-label">Experience</label>
+                    <label for="bio" class="col-sm-2 control-label">Experience</label>
 
                     <div class="col-sm-10">
-                      <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
+                      <textarea v-model="form.bio" class="form-control" id="bio" placeholder="Experience"></textarea>
                     </div>
                   </div>
 
@@ -128,8 +128,27 @@
 
 <script>
     export default {
+        data() {
+            return {
+                form: new Form({
+                    id : '',
+                    name: '',
+                    email: '',
+                    password: '',
+                    type: '',
+                    bio: '',
+                    photo: '',
+                }),
+            }
+        },
+
         mounted() {
             console.log('Component mounted.')
+        },
+
+        created() {
+            axios.get("api/profile")
+            .then(({ data }) => (this.form.fill(data)));
         }
     }
 </script>
