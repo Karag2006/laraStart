@@ -92,6 +92,13 @@ class UserController extends Controller
 
             $request->merge(['photo' => $name]);
 
+            $oldUserPhoto = public_path('img/profile/').$currentPhoto;
+
+            if (file_exists($oldUserPhoto)) {
+                @unlink($oldUserPhoto);
+            }
+
+
         }
 
         if(!empty($request->password)){
