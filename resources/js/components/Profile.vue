@@ -104,7 +104,7 @@
                     <label for="password" class="col-sm-2 control-label">Password (leave empty if not changing)</label>
 
                     <div class="col-sm-10">
-                      <input type="password" class="form-control" id="password" placeholder="Password">
+                      <input v-model="form.password" type="password" class="form-control" id="password" placeholder="Password">
                     </div>
                   </div>
 
