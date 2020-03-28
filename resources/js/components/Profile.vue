@@ -20,7 +20,7 @@
                 <h5 class="widget-user-desc">{{ form.type }}</h5>
               </div>
               <div class="widget-user-image">
-                <img class="img-circle" src="" alt="User Avatar">
+                <img class="img-circle" :src="getProfilePhoto()" alt="User Avatar">
               </div>
               <div class="box-footer">
                 <div class="row">
@@ -134,6 +134,7 @@
     export default {
         data() {
             return {
+                profilePhoto : '',
                 form: new Form({
                     id : '',
                     name: '',
@@ -151,15 +152,24 @@
         },
 
         created() {
-            axios.get("api/profile")
-            .then(({ data }) => (this.form.fill(data)));
+            this.loadProfile()
+            Fire.$on('profile_change', () => {this.loadProfile()});
         },
 
         methods:{
+            loadProfile()
+            {
+                axios.get("api/profile")
+                .then(({ data }) => {this.form.fill(data); this.profilePhoto = this.form.photo});
+            },
+            getProfilePhoto(){
+                return "img/profile/" + this.profilePhoto;
+            },
           updateInfo(){
             this.$Progress.start();
             this.form.patch('api/profile')
                .then(() => {
+                   Fire.$emit('profile_change');
                    this.$Progress.finish();
                 })
                 .catch(() => {

@@ -2124,6 +2124,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      profilePhoto: '',
       form: new Form({
         id: '',
         name: '',
@@ -2141,24 +2142,40 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    axios.get("api/profile").then(function (_ref) {
-      var data = _ref.data;
-      return _this.form.fill(data);
+    this.loadProfile();
+    Fire.$on('profile_change', function () {
+      _this.loadProfile();
     });
   },
   methods: {
-    updateInfo: function updateInfo() {
+    loadProfile: function loadProfile() {
       var _this2 = this;
+
+      axios.get("api/profile").then(function (_ref) {
+        var data = _ref.data;
+
+        _this2.form.fill(data);
+
+        _this2.profilePhoto = _this2.form.photo;
+      });
+    },
+    getProfilePhoto: function getProfilePhoto() {
+      return "img/profile/" + this.profilePhoto;
+    },
+    updateInfo: function updateInfo() {
+      var _this3 = this;
 
       this.$Progress.start();
       this.form.patch('api/profile').then(function () {
-        _this2.$Progress.finish();
+        Fire.$emit('profile_change');
+
+        _this3.$Progress.finish();
       })["catch"](function () {
-        _this2.$Progress.fail();
+        _this3.$Progress.fail();
       });
     },
     updateProfile: function updateProfile(e) {
-      var _this3 = this;
+      var _this4 = this;
 
       //console.log('uploading');
       var file = e.target.files[0];
@@ -2167,7 +2184,7 @@ __webpack_require__.r(__webpack_exports__);
       if (file['size'] < 3 * 1024 * 1024) {
         reader.onloadend = function (file) {
           console.log('RESULT', reader.result);
-          _this3.form.photo = reader.result;
+          _this4.form.photo = reader.result;
         };
 
         reader.readAsDataURL(file);
@@ -61161,9 +61178,14 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _vm._m(0),
+          _c("div", { staticClass: "widget-user-image" }, [
+            _c("img", {
+              staticClass: "img-circle",
+              attrs: { src: _vm.getProfilePhoto(), alt: "User Avatar" }
+            })
+          ]),
           _vm._v(" "),
-          _vm._m(1)
+          _vm._m(0)
         ])
       ])
     ]),
@@ -61171,7 +61193,7 @@ var render = function() {
     _c("div", { staticClass: "row card" }, [
       _c("div", { staticClass: "col-md-12" }, [
         _c("div", { staticClass: "nav-tabs-custom" }, [
-          _vm._m(2),
+          _vm._m(1),
           _vm._v(" "),
           _c("div", { staticClass: "tab-content mt-3" }, [
             _c("div", { staticClass: "tab-pane", attrs: { id: "activity" } }),
@@ -61426,17 +61448,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "widget-user-image" }, [
-      _c("img", {
-        staticClass: "img-circle",
-        attrs: { src: "", alt: "User Avatar" }
-      })
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
