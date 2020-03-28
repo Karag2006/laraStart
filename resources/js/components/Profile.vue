@@ -153,12 +153,13 @@
 
         methods:{
           updateInfo(){
+            this.$Progress.start();
             this.form.patch('api/profile')
                .then(() => {
-
+                   this.$Progress.finish();
                 })
                 .catch(() => {
-
+                    this.$Progress.fail();
                 })
 
           },
@@ -167,11 +168,19 @@
                 let file = e.target.files[0];
 
                 let reader = new FileReader();
-                reader.onloadend = (file) => {
-                    //console.log('RESULT', reader.result)
-                    this.form.photo = reader.result;
+
+                if(file['size'] < 3*1024*1024 )
+                {
+                    reader.onloadend = (file) => {
+                        console.log('RESULT', reader.result)
+                        this.form.photo = reader.result;
+                    }
+                    reader.readAsDataURL(file);
                 }
-                reader.readAsDataURL(file);
+                else
+                {
+                    swal.fire("Oops...", "Profile Picture must be smaller then 3MB", "error");
+                }
             }
         },
     }

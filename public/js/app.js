@@ -2144,21 +2144,32 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     updateInfo: function updateInfo() {
-      this.form.patch('api/profile').then(function () {})["catch"](function () {});
+      var _this2 = this;
+
+      this.$Progress.start();
+      this.form.patch('api/profile').then(function () {
+        _this2.$Progress.finish();
+      })["catch"](function () {
+        _this2.$Progress.fail();
+      });
     },
     updateProfile: function updateProfile(e) {
-      var _this2 = this;
+      var _this3 = this;
 
       //console.log('uploading');
       var file = e.target.files[0];
       var reader = new FileReader();
 
-      reader.onloadend = function (file) {
-        //console.log('RESULT', reader.result)
-        _this2.form.photo = reader.result;
-      };
+      if (file['size'] < 3 * 1024 * 1024) {
+        reader.onloadend = function (file) {
+          console.log('RESULT', reader.result);
+          _this3.form.photo = reader.result;
+        };
 
-      reader.readAsDataURL(file);
+        reader.readAsDataURL(file);
+      } else {
+        swal.fire("Oops...", "Profile Picture must be smaller then 3MB", "error");
+      }
     }
   }
 });
