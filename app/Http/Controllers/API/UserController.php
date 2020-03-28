@@ -34,7 +34,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name'              => 'required|string|max:50',
+            'name'              => 'required|string|max:50|min:4',
             'email'             => 'required|string|email|max:191|unique:users',
             'password'          => 'required|string|min:4',
             'type'              => 'required',
@@ -77,7 +77,7 @@ class UserController extends Controller
         $user = auth('api')->user();
 
         $this->validate($request, [
-            'name'              => 'required|string|max:50',
+            'name'              => 'required|string|max:50|min:4',
             'email'             => 'required|string|email|max:191|unique:users,email,'.$user->id,
             'password'          => 'sometimes|required|string|min:4',
             'type'              => 'required',
@@ -92,6 +92,10 @@ class UserController extends Controller
 
             $request->merge(['photo' => $name]);
 
+        }
+
+        if(!empty($request->password)){
+            $request->merge(['password' => Hash::make($request['password'])]);
         }
 
         $user->update($request->all());
@@ -109,7 +113,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
 
         $this->validate($request, [
-            'name'              => 'required|string|max:50',
+            'name'              => 'required|string|max:50|min:4',
             'email'             => 'required|string|email|max:191|unique:users,email,'.$user->id,
             'password'          => 'sometimes|string|min:4',
             'type'              => 'required',
