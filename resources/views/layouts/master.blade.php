@@ -83,6 +83,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </router-link>
               </li>
 
+              @can('isAdmin')
+
 
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
@@ -104,6 +106,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </ul>
           </li>
 
+          @endcan
           @can('isAdmin')
 
 
@@ -178,6 +181,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
   </footer>
 </div>
 <!-- ./wrapper -->
+
+@auth
+    <script>
+        window.user = @json(auth()->user())
+    </script>
+@endauth
 
 <!-- REQUIRED SCRIPTS -->
 

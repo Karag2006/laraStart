@@ -21,6 +21,9 @@ Vue.component(AlertError.name, AlertError)
 
 Vue.use(VueRouter)
 
+import Gate from "./gate"
+Vue.prototype.$gate = new Gate(window.user);
+
 
 import VueProgressBar from 'vue-progressbar';
 
