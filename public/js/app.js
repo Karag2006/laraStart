@@ -2397,7 +2397,7 @@ __webpack_require__.r(__webpack_exports__);
           _this3.form["delete"]('api/user/' + id).then(function () {
             swal.fire('Deleted!', 'The User has been deleted.', 'success');
           })["catch"](function () {
-            swal("Failed!", "There was an Error", "warning");
+            swal.fire("Failed!", "There was an Error", "warning");
           });
 
           Fire.$emit('user_change');
@@ -78311,8 +78311,8 @@ var toast = sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.mixin({
   timer: 3000,
   timerProgressBar: true,
   onOpen: function onOpen(toast) {
-    toast.addEventListener('mouseenter', Swal.stopTimer);
-    toast.addEventListener('mouseleave', Swal.resumeTimer);
+    toast.addEventListener('mouseenter', sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.stopTimer);
+    toast.addEventListener('mouseleave', sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.resumeTimer);
   }
 });
 window.toast = toast;

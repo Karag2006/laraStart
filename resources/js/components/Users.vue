@@ -206,7 +206,7 @@
                             )
                         })
                         .catch(() => {
-                            swal("Failed!", "There was an Error", "warning");
+                            swal.fire("Failed!", "There was an Error", "warning");
                         });
                         Fire.$emit('user_change');
                     }
